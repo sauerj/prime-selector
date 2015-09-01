@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=@PACKAGE_NAME@
+Comment=Utility for changeing PRIME status
+Comment[de]=Programm zum ändern des PRIME Status
+Exec=@bindir@/prime-selector
+Icon=@pkgdatadir@/intel-logo.png
+Terminal=false
+Type=Application
+StartupNotify=false
+Categories=Utility;System
