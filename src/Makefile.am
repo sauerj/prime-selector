@@ -1,5 +1,5 @@
 SUBDIRS = PRIMEselector
-bin_PROGRAMS = primeselect
+libexec_PROGRAMS = primeselect
 primeselect_SOURCES = primeselect.c
 
 bin_SCRIPTS = prime-selector
@@ -8,7 +8,7 @@ EXTRA_DIST = prime-selector.in
 
 do_subst = sed -e 's,[@]pythondir[@],$(pythondir),g' \
 		-e 's,[@]pkgdatadir[@],$(pkgdatadir),g' \
-		-e 's,[@]PACKAGE[@],$(PACKAGE),g' \
+		-e 's,[@]PACKAGE_NAME[@],$(PACKAGE_NAME),g' \
 		-e 's,[@]VERSION[@],$(VERSION),g'
 
 prime-selector: prime-selector.in Makefile
@@ -16,5 +16,5 @@ prime-selector: prime-selector.in Makefile
 	chmod +x prime-selector
 
 install-exec-hook:
-	/bin/chown root $(DESTDIR)$(bindir)/primeselect
-	/bin/chmod 4755 $(DESTDIR)$(bindir)/primeselect
+	/bin/chown root $(DESTDIR)$(libexecdir)/primeselect
+	/bin/chmod 4755 $(DESTDIR)$(libexecdir)/primeselect
