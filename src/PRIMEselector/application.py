@@ -23,7 +23,6 @@ class PRIMEselector(Gtk.Window):
 	label.set_markup("<b>Select the GPU you want to use</b>")
 	grid.attach(label, 0, 0, 2, 1)
 
-	print("pkgdatadir: %s" % self.pkgdatadir)
 	self.intel_button = Gtk.Button()
 	self.nvidia_button = Gtk.Button()
 	nvidia_image = Gtk.Image.new_from_file("%s/nvidia-logo.png" % self.pkgdatadir)
