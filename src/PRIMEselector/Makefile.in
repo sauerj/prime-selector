@@ -233,6 +233,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 PRIMEselector_PYTHON = application.py __init__.py
+CLEANFILES = application.pyc __init__.pyc
 PRIMEselectordir = $(pythondir)/PRIMEselector
 all: all-am
 
@@ -381,6 +382,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)

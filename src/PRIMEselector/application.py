@@ -3,7 +3,6 @@ from gi.repository import Gtk, GObject
 import subprocess
 
 class PRIMEselector(Gtk.Window):
-
     datadir = ""
     def __init__(self, *args, **kwargs):
         for key in kwargs:
@@ -12,6 +11,7 @@ class PRIMEselector(Gtk.Window):
 
     def _create_main_window(self):
 	self.window = Gtk.Window()
+	self.window.set_title(self.package)
 	grid = Gtk.Grid()
 	grid.set_property("margin", 18)
 	grid.set_row_spacing(6)
@@ -41,17 +41,18 @@ class PRIMEselector(Gtk.Window):
 	logout_switch.set_halign(1)
 	grid.attach(logout_switch, 1, 2, 1, 1)
 
-	if self.get_prime_status() == "intel":
-	    self.set_sensitive_button(self.nvidia_button, self.intel_button)
-	else:
-	    self.set_sensitive_button(self.intel_button, self.nvidia_button)
-
 	self.window.connect("delete-event", Gtk.main_quit)
 	self.intel_button.connect("clicked", self.on_intel_clicked)
 	self.nvidia_button.connect("clicked", self.on_nvidia_clicked)
 
     def run(self):
 	self.window.show_all()
+
+	if self.get_prime_status() == "intel":
+	    self.set_sensitive_button(self.nvidia_button, self.intel_button)
+	else:
+	    self.set_sensitive_button(self.intel_button, self.nvidia_button)
+
 	Gtk.main()
 
     def get_prime_status(self):
@@ -65,7 +66,17 @@ class PRIMEselector(Gtk.Window):
 	deactivate.set_sensitive(False)
 
     def on_intel_clicked(self, button):
-	self.set_sensitive_button(self.nvidia_button, self.intel_button)
+	self.change_gpu("intel")
 
     def on_nvidia_clicked(self, button):
-	self.set_sensitive_button(self.intel_button, self.nvidia_button)
+	self.change_gpu("nvidia")
+
+    def change_gpu(self, gpu):
+	if (gpu == "intel"):
+	    self.set_sensitive_button(self.nvidia_button, self.intel_button)
+	    subprocess.call(["%s/primeselect" % self.libexecdir, "intel"])
+
+	if (gpu == "nvidia"):
+	    self.set_sensitive_button(self.intel_button, self.nvidia_button)
+	    subprocess.call(["%s/primeselect" % self.libexecdir, "nvidia"])
+
