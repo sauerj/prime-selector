@@ -5,7 +5,7 @@ desktopdir = $(datadir)/applications
 desktop_DATA = PRIMEselector.desktop
 
 CLEANFILES = PRIMEselector.desktop
-EXTRA_DIST = $(desktop_DATA)
+EXTRA_DIST = PRIMEselector.desktop.in
 
 do_subst = sed 	-e 's,[@]bindir[@],$(bindir),g' \
 		-e 's,[@]PACKAGE_NAME[@],$(PACKAGE_NAME),g' \
