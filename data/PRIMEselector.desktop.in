@@ -2,8 +2,8 @@
 Name=@PACKAGE_NAME@
 Comment=Utility for changeing PRIME status
 Comment[de]=Programm zum ändern des PRIME Status
-Exec=@bindir@/prime-selector
-Icon=@pkgdatadir@/intel-logo.png
+Exec=prime-selector
+Icon=prime-selector
 Terminal=false
 Type=Application
 StartupNotify=false

@@ -11,7 +11,8 @@ class PRIMEselector(Gtk.Window):
 
     def _create_main_window(self):
 	self.window = Gtk.Window()
-	self.window.set_title(self.package)
+	self.window.set_title(self.package_name)
+	self.window.set_icon_name(self.package)
 	grid = Gtk.Grid()
 	grid.set_property("margin", 18)
 	grid.set_row_spacing(6)

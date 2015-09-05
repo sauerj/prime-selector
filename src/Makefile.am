@@ -10,7 +10,8 @@ do_subst = sed -e 's,[@]pythondir[@],$(pythondir),g' \
 		-e 's,[@]pkgdatadir[@],$(pkgdatadir),g' \
 		-e 's,[@]PACKAGE_NAME[@],$(PACKAGE_NAME),g' \
 		-e 's,[@]VERSION[@],$(VERSION),g' \
-		-e 's,[@]libexecdir[@],$(libexecdir),g'
+		-e 's,[@]libexecdir[@],$(libexecdir),g' \
+		-e 's,[@]PACKAGE[@],$(PACKAGE),g'
 
 prime-selector: prime-selector.in Makefile
 	$(do_subst) < $(srcdir)/prime-selector.in > prime-selector

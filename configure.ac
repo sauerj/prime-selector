@@ -8,5 +8,21 @@ AC_CONFIG_FILES([
  src/Makefile
  src/PRIMEselector/Makefile
  data/Makefile
+ data/icons/Makefile
+ data/icons/hicolor/Makefile
+ data/icons/hicolor/16x16/Makefile
+ data/icons/hicolor/16x16/apps/Makefile
+ data/icons/hicolor/24x24/Makefile
+ data/icons/hicolor/24x24/apps/Makefile
+ data/icons/hicolor/36x36/Makefile
+ data/icons/hicolor/36x36/apps/Makefile
+ data/icons/hicolor/48x48/Makefile
+ data/icons/hicolor/48x48/apps/Makefile
+ data/icons/hicolor/64x64/Makefile
+ data/icons/hicolor/64x64/apps/Makefile
+ data/icons/hicolor/128x128/Makefile
+ data/icons/hicolor/128x128/apps/Makefile
+ data/icons/hicolor/scalable/Makefile
+ data/icons/hicolor/scalable/apps/Makefile
 ])
 AC_OUTPUT
