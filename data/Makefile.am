@@ -1,5 +1,5 @@
 SUBDIRS = icons
-dist_pkgdata_DATA = intel-logo.png nvidia-logo.png
+dist_pkgdata_DATA = intel-logo.svg nvidia-logo.svg
 
 desktopdir = $(datadir)/applications
 desktop_DATA = PRIMEselector.desktop

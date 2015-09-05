@@ -26,8 +26,8 @@ class PRIMEselector(Gtk.Window):
 
 	self.intel_button = Gtk.Button()
 	self.nvidia_button = Gtk.Button()
-	nvidia_image = Gtk.Image.new_from_file("%s/nvidia-logo.png" % self.pkgdatadir)
-	intel_image = Gtk.Image.new_from_file("%s/intel-logo.png" % self.pkgdatadir)
+	nvidia_image = Gtk.Image.new_from_file("%s/nvidia-logo.svg" % self.pkgdatadir)
+	intel_image = Gtk.Image.new_from_file("%s/intel-logo.svg" % self.pkgdatadir)
 	self.intel_button.set_image(intel_image)
 	self.nvidia_button.set_image(nvidia_image)
 	grid.attach(self.nvidia_button, 0, 1, 1, 1)
