@@ -54,14 +54,22 @@ int main (int argc, char** argv)
   gtk_grid_attach(GTK_GRID (grid), nvidia_button, 0, 1, 1, 1);
   gtk_grid_attach(GTK_GRID (grid), intel_button, 1, 1, 1, 1);
 
-  label2 = gtk_label_new ("Logout");
-  gtk_widget_set_halign (label2, GTK_ALIGN_END);
-  gtk_grid_attach (GTK_GRID (grid), label2, 0, 2, 1, 1);
+/*************************************************
+ * Logout switch is not implemented and useless. *
+ *************************************************/
 
-  logout_switch = gtk_switch_new ();
-  gtk_switch_set_active (GTK_SWITCH (logout_switch), TRUE);
-  gtk_widget_set_halign (logout_switch, GTK_ALIGN_START);
-  gtk_grid_attach (GTK_GRID (grid), logout_switch, 1, 2, 1, 1);
+/*  label2 = gtk_label_new ("Logout");
+ *  gtk_widget_set_halign (label2, GTK_ALIGN_END);
+ *
+ *  gtk_grid_attach (GTK_GRID (grid), label2, 0, 2, 1, 1);
+ */
+
+/*  logout_switch = gtk_switch_new ();
+ *  gtk_switch_set_active (GTK_SWITCH (logout_switch), TRUE);
+ *  gtk_widget_set_halign (logout_switch, GTK_ALIGN_START);
+ *
+ *  gtk_grid_attach (GTK_GRID (grid), logout_switch, 1, 2, 1, 1);
+ */
 
   g_signal_connect (intel_button, "clicked", G_CALLBACK (on_intel_clicked), NULL);
   g_signal_connect (nvidia_button, "clicked", G_CALLBACK (on_nvidia_clicked), NULL);
