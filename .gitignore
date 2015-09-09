@@ -6,8 +6,7 @@ config.status
 src/.deps
 data/PRIMEselector.desktop
 src/prime-selector
-src/primeselect
-src/primeselect.o
-
+src/prime-selector-select
+src/*.o
 config.h
 stamp-h1
