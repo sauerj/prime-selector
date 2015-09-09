@@ -78,6 +78,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 libexec_PROGRAMS = primeselect$(EXEEXT)
+bin_PROGRAMS = primeselector$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
@@ -89,11 +90,18 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__installdirs = "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(bindir)"
-PROGRAMS = $(libexec_PROGRAMS)
+am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecdir)" \
+	"$(DESTDIR)$(bindir)"
+PROGRAMS = $(bin_PROGRAMS) $(libexec_PROGRAMS)
 am_primeselect_OBJECTS = primeselect.$(OBJEXT)
 primeselect_OBJECTS = $(am_primeselect_OBJECTS)
 primeselect_LDADD = $(LDADD)
+am_primeselector_OBJECTS = primeselector-primeselector.$(OBJEXT)
+primeselector_OBJECTS = $(am_primeselector_OBJECTS)
+am__DEPENDENCIES_1 =
+primeselector_DEPENDENCIES = $(am__DEPENDENCIES_1)
+primeselector_LINK = $(CCLD) $(primeselector_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -138,6 +146,10 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_@AM_V@)
@@ -150,8 +162,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(primeselect_SOURCES)
-DIST_SOURCES = $(primeselect_SOURCES)
+SOURCES = $(primeselect_SOURCES) $(primeselector_SOURCES)
+DIST_SOURCES = $(primeselect_SOURCES) $(primeselector_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -320,6 +332,12 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = PRIMEselector
 primeselect_SOURCES = primeselect.c
+primeselector_SOURCES = primeselector.c
+primeselector_CPPFLAGS = -DDATADIR='"$(datadir)"' \
+			-DLIBEXECDIR='"$(libexecdir)"' 
+
+primeselector_CFLAGS = $(GTK_CFLAGS)
+primeselector_LDADD = $(GTK_LIBS)
 bin_SCRIPTS = prime-selector
 CLEANFILES = $(bin_SCRIPTS)
 EXTRA_DIST = prime-selector.in
@@ -364,6 +382,48 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+install-binPROGRAMS: $(bin_PROGRAMS)
+	@$(NORMAL_INSTALL)
+	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(bindir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(bindir)" || exit 1; \
+	fi; \
+	for p in $$list; do echo "$$p $$p"; done | \
+	sed 's/$(EXEEXT)$$//' | \
+	while read p p1; do if test -f $$p \
+	  ; then echo "$$p"; echo "$$p"; else :; fi; \
+	done | \
+	sed -e 'p;s,.*/,,;n;h' \
+	    -e 's|.*|.|' \
+	    -e 'p;x;s,.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/' | \
+	sed 'N;N;N;s,\n, ,g' | \
+	$(AWK) 'BEGIN { files["."] = ""; dirs["."] = 1 } \
+	  { d=$$3; if (dirs[d] != 1) { print "d", d; dirs[d] = 1 } \
+	    if ($$2 == $$4) files[d] = files[d] " " $$1; \
+	    else { print "f", $$3 "/" $$4, $$1; } } \
+	  END { for (d in files) print "f", d, files[d] }' | \
+	while read type dir files; do \
+	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
+	    test -z "$$files" || { \
+	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
+	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
+	    } \
+	; done
+
+uninstall-binPROGRAMS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
+	files=`for p in $$list; do echo "$$p"; done | \
+	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
+	      -e 's/$$/$(EXEEXT)/' \
+	`; \
+	test -n "$$list" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(bindir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(bindir)" && rm -f $$files
+
+clean-binPROGRAMS:
+	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 install-libexecPROGRAMS: $(libexec_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(libexec_PROGRAMS)'; test -n "$(libexecdir)" || list=; \
@@ -410,6 +470,10 @@ clean-libexecPROGRAMS:
 primeselect$(EXEEXT): $(primeselect_OBJECTS) $(primeselect_DEPENDENCIES) $(EXTRA_primeselect_DEPENDENCIES) 
 	@rm -f primeselect$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(primeselect_OBJECTS) $(primeselect_LDADD) $(LIBS)
+
+primeselector$(EXEEXT): $(primeselector_OBJECTS) $(primeselector_DEPENDENCIES) $(EXTRA_primeselector_DEPENDENCIES) 
+	@rm -f primeselector$(EXEEXT)
+	$(AM_V_CCLD)$(primeselector_LINK) $(primeselector_OBJECTS) $(primeselector_LDADD) $(LIBS)
 install-binSCRIPTS: $(bin_SCRIPTS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_SCRIPTS)'; test -n "$(bindir)" || list=; \
@@ -453,6 +517,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/primeselect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/primeselector-primeselector.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -467,6 +532,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+primeselector-primeselector.o: primeselector.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -MT primeselector-primeselector.o -MD -MP -MF $(DEPDIR)/primeselector-primeselector.Tpo -c -o primeselector-primeselector.o `test -f 'primeselector.c' || echo '$(srcdir)/'`primeselector.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/primeselector-primeselector.Tpo $(DEPDIR)/primeselector-primeselector.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='primeselector.c' object='primeselector-primeselector.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -c -o primeselector-primeselector.o `test -f 'primeselector.c' || echo '$(srcdir)/'`primeselector.c
+
+primeselector-primeselector.obj: primeselector.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -MT primeselector-primeselector.obj -MD -MP -MF $(DEPDIR)/primeselector-primeselector.Tpo -c -o primeselector-primeselector.obj `if test -f 'primeselector.c'; then $(CYGPATH_W) 'primeselector.c'; else $(CYGPATH_W) '$(srcdir)/primeselector.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/primeselector-primeselector.Tpo $(DEPDIR)/primeselector-primeselector.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='primeselector.c' object='primeselector-primeselector.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -c -o primeselector-primeselector.obj `if test -f 'primeselector.c'; then $(CYGPATH_W) 'primeselector.c'; else $(CYGPATH_W) '$(srcdir)/primeselector.c'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.
@@ -627,7 +706,7 @@ check: check-recursive
 all-am: Makefile $(PROGRAMS) $(SCRIPTS)
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(bindir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(bindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -663,7 +742,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libexecPROGRAMS mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-libexecPROGRAMS \
+	mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -rf ./$(DEPDIR)
@@ -689,7 +769,8 @@ install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-binSCRIPTS install-libexecPROGRAMS
+install-exec-am: install-binPROGRAMS install-binSCRIPTS \
+	install-libexecPROGRAMS
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
 install-html: install-html-recursive
@@ -729,25 +810,28 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-binSCRIPTS uninstall-libexecPROGRAMS
+uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
+	uninstall-libexecPROGRAMS
 
 .MAKE: $(am__recursive_targets) install-am install-exec-am \
 	install-strip
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am check \
-	check-am clean clean-generic clean-libexecPROGRAMS \
-	cscopelist-am ctags ctags-am distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binSCRIPTS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-exec-hook install-html \
-	install-html-am install-info install-info-am \
-	install-libexecPROGRAMS install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs installdirs-am maintainer-clean \
+	check-am clean clean-binPROGRAMS clean-generic \
+	clean-libexecPROGRAMS cscopelist-am ctags ctags-am distclean \
+	distclean-compile distclean-generic distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binPROGRAMS install-binSCRIPTS install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-exec-hook install-html install-html-am \
+	install-info install-info-am install-libexecPROGRAMS \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs installdirs-am maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-binSCRIPTS uninstall-libexecPROGRAMS
+	uninstall-am uninstall-binPROGRAMS uninstall-binSCRIPTS \
+	uninstall-libexecPROGRAMS
 
 
 prime-selector: prime-selector.in Makefile
