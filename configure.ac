@@ -8,6 +8,7 @@ AC_CONFIG_FILES([
  Makefile
  src/Makefile
  data/Makefile
+ data/desktop/Makefile
  data/icons/Makefile
  data/icons/hicolor/Makefile
  data/icons/hicolor/16x16/Makefile

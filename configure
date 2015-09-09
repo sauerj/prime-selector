@@ -3730,7 +3730,7 @@ $as_echo "yes" >&6; }
 fi
 ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files Makefile src/Makefile data/Makefile data/icons/Makefile data/icons/hicolor/Makefile data/icons/hicolor/16x16/Makefile data/icons/hicolor/16x16/apps/Makefile data/icons/hicolor/24x24/Makefile data/icons/hicolor/24x24/apps/Makefile data/icons/hicolor/36x36/Makefile data/icons/hicolor/36x36/apps/Makefile data/icons/hicolor/48x48/Makefile data/icons/hicolor/48x48/apps/Makefile data/icons/hicolor/64x64/Makefile data/icons/hicolor/64x64/apps/Makefile data/icons/hicolor/128x128/Makefile data/icons/hicolor/128x128/apps/Makefile data/icons/hicolor/scalable/Makefile data/icons/hicolor/scalable/apps/Makefile"
+ac_config_files="$ac_config_files Makefile src/Makefile data/Makefile data/desktop/Makefile data/icons/Makefile data/icons/hicolor/Makefile data/icons/hicolor/16x16/Makefile data/icons/hicolor/16x16/apps/Makefile data/icons/hicolor/24x24/Makefile data/icons/hicolor/24x24/apps/Makefile data/icons/hicolor/36x36/Makefile data/icons/hicolor/36x36/apps/Makefile data/icons/hicolor/48x48/Makefile data/icons/hicolor/48x48/apps/Makefile data/icons/hicolor/64x64/Makefile data/icons/hicolor/64x64/apps/Makefile data/icons/hicolor/128x128/Makefile data/icons/hicolor/128x128/apps/Makefile data/icons/hicolor/scalable/Makefile data/icons/hicolor/scalable/apps/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -4462,6 +4462,7 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "data/Makefile") CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
+    "data/desktop/Makefile") CONFIG_FILES="$CONFIG_FILES data/desktop/Makefile" ;;
     "data/icons/Makefile") CONFIG_FILES="$CONFIG_FILES data/icons/Makefile" ;;
     "data/icons/hicolor/Makefile") CONFIG_FILES="$CONFIG_FILES data/icons/hicolor/Makefile" ;;
     "data/icons/hicolor/16x16/Makefile") CONFIG_FILES="$CONFIG_FILES data/icons/hicolor/16x16/Makefile" ;;
