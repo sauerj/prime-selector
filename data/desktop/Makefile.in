@@ -228,12 +228,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 desktopdir = $(datadir)/applications
 desktop_DATA = PRIMEselector.desktop
-CLEANFILES = PRIMEselector.desktop
-EXTRA_DIST = PRIMEselector.desktop.in
-do_subst = sed 	-e 's,[@]bindir[@],$(bindir),g' \
-		-e 's,[@]PACKAGE_NAME[@],$(PACKAGE_NAME),g' \
-		-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'
-
+EXTRA_DIST = PRIMEselector.desktop
 UPDATE_DESKTOP = update-desktop-database $(datadir)/applications || :
 all: all-am
 
@@ -355,7 +350,6 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -446,9 +440,6 @@ uninstall-am: uninstall-desktopDATA
 	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags-am \
 	uninstall uninstall-am uninstall-desktopDATA uninstall-hook
 
-
-PRIMEselector.desktop: PRIMEselector.desktop.in Makefile
-	$(do_subst) < PRIMEselector.desktop.in > PRIMEselector.desktop
 
 install-data-hook: 
 	$(UPDATE_DESKTOP)
