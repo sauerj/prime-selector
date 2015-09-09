@@ -8,3 +8,6 @@ data/PRIMEselector.desktop
 src/prime-selector
 src/primeselect
 src/primeselect.o
+
+config.h
+stamp-h1
