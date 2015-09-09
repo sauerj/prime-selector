@@ -4,7 +4,6 @@ autom4te.cache/
 config.log
 config.status
 src/.deps
-data/PRIMEselector.desktop
 src/prime-selector
 src/prime-selector-select
 src/*.o
