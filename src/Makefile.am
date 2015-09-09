@@ -1,13 +1,13 @@
-libexec_PROGRAMS = primeselect
-primeselect_SOURCES = primeselect.c
+libexec_PROGRAMS = prime-selector-select
+prime_selector_select_SOURCES = prime-selector-select.c
 
-bin_PROGRAMS = primeselector
-primeselector_SOURCES = primeselector.c
-primeselector_CPPFLAGS = -DDATADIR='"$(datadir)"' \
+bin_PROGRAMS = prime-selector
+prime_selector_SOURCES = prime-selector.c
+prime_selector_CPPFLAGS = -DDATADIR='"$(datadir)"' \
 			-DLIBEXECDIR='"$(libexecdir)"' 
-primeselector_CFLAGS = $(GTK_CFLAGS)
-primeselector_LDADD = $(GTK_LIBS)
+prime_selector_CFLAGS = $(GTK_CFLAGS)
+prime_selector_LDADD = $(GTK_LIBS)
 
 install-exec-hook:
-	/bin/chown root $(DESTDIR)$(libexecdir)/primeselect
-	/bin/chmod 4755 $(DESTDIR)$(libexecdir)/primeselect
+	/bin/chown root $(DESTDIR)$(libexecdir)/prime-selector-select
+	/bin/chmod 4755 $(DESTDIR)$(libexecdir)/prime-selector-select

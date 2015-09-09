@@ -76,8 +76,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-libexec_PROGRAMS = primeselect$(EXEEXT)
-bin_PROGRAMS = primeselector$(EXEEXT)
+libexec_PROGRAMS = prime-selector-select$(EXEEXT)
+bin_PROGRAMS = prime-selector$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
@@ -91,15 +91,15 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecdir)"
 PROGRAMS = $(bin_PROGRAMS) $(libexec_PROGRAMS)
-am_primeselect_OBJECTS = primeselect.$(OBJEXT)
-primeselect_OBJECTS = $(am_primeselect_OBJECTS)
-primeselect_LDADD = $(LDADD)
-am_primeselector_OBJECTS = primeselector-primeselector.$(OBJEXT)
-primeselector_OBJECTS = $(am_primeselector_OBJECTS)
+am_prime_selector_OBJECTS = prime_selector-prime-selector.$(OBJEXT)
+prime_selector_OBJECTS = $(am_prime_selector_OBJECTS)
 am__DEPENDENCIES_1 =
-primeselector_DEPENDENCIES = $(am__DEPENDENCIES_1)
-primeselector_LINK = $(CCLD) $(primeselector_CFLAGS) $(CFLAGS) \
+prime_selector_DEPENDENCIES = $(am__DEPENDENCIES_1)
+prime_selector_LINK = $(CCLD) $(prime_selector_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+am_prime_selector_select_OBJECTS = prime-selector-select.$(OBJEXT)
+prime_selector_select_OBJECTS = $(am_prime_selector_select_OBJECTS)
+prime_selector_select_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -132,8 +132,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(primeselect_SOURCES) $(primeselector_SOURCES)
-DIST_SOURCES = $(primeselect_SOURCES) $(primeselector_SOURCES)
+SOURCES = $(prime_selector_SOURCES) $(prime_selector_select_SOURCES)
+DIST_SOURCES = $(prime_selector_SOURCES) \
+	$(prime_selector_select_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -249,13 +250,13 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-primeselect_SOURCES = primeselect.c
-primeselector_SOURCES = primeselector.c
-primeselector_CPPFLAGS = -DDATADIR='"$(datadir)"' \
+prime_selector_select_SOURCES = prime-selector-select.c
+prime_selector_SOURCES = prime-selector.c
+prime_selector_CPPFLAGS = -DDATADIR='"$(datadir)"' \
 			-DLIBEXECDIR='"$(libexecdir)"' 
 
-primeselector_CFLAGS = $(GTK_CFLAGS)
-primeselector_LDADD = $(GTK_LIBS)
+prime_selector_CFLAGS = $(GTK_CFLAGS)
+prime_selector_LDADD = $(GTK_LIBS)
 all: all-am
 
 .SUFFIXES:
@@ -375,13 +376,13 @@ uninstall-libexecPROGRAMS:
 clean-libexecPROGRAMS:
 	-test -z "$(libexec_PROGRAMS)" || rm -f $(libexec_PROGRAMS)
 
-primeselect$(EXEEXT): $(primeselect_OBJECTS) $(primeselect_DEPENDENCIES) $(EXTRA_primeselect_DEPENDENCIES) 
-	@rm -f primeselect$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(primeselect_OBJECTS) $(primeselect_LDADD) $(LIBS)
+prime-selector$(EXEEXT): $(prime_selector_OBJECTS) $(prime_selector_DEPENDENCIES) $(EXTRA_prime_selector_DEPENDENCIES) 
+	@rm -f prime-selector$(EXEEXT)
+	$(AM_V_CCLD)$(prime_selector_LINK) $(prime_selector_OBJECTS) $(prime_selector_LDADD) $(LIBS)
 
-primeselector$(EXEEXT): $(primeselector_OBJECTS) $(primeselector_DEPENDENCIES) $(EXTRA_primeselector_DEPENDENCIES) 
-	@rm -f primeselector$(EXEEXT)
-	$(AM_V_CCLD)$(primeselector_LINK) $(primeselector_OBJECTS) $(primeselector_LDADD) $(LIBS)
+prime-selector-select$(EXEEXT): $(prime_selector_select_OBJECTS) $(prime_selector_select_DEPENDENCIES) $(EXTRA_prime_selector_select_DEPENDENCIES) 
+	@rm -f prime-selector-select$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(prime_selector_select_OBJECTS) $(prime_selector_select_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -389,8 +390,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/primeselect.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/primeselector-primeselector.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/prime-selector-select.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/prime_selector-prime-selector.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -406,19 +407,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-primeselector-primeselector.o: primeselector.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -MT primeselector-primeselector.o -MD -MP -MF $(DEPDIR)/primeselector-primeselector.Tpo -c -o primeselector-primeselector.o `test -f 'primeselector.c' || echo '$(srcdir)/'`primeselector.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/primeselector-primeselector.Tpo $(DEPDIR)/primeselector-primeselector.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='primeselector.c' object='primeselector-primeselector.o' libtool=no @AMDEPBACKSLASH@
+prime_selector-prime-selector.o: prime-selector.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(prime_selector_CPPFLAGS) $(CPPFLAGS) $(prime_selector_CFLAGS) $(CFLAGS) -MT prime_selector-prime-selector.o -MD -MP -MF $(DEPDIR)/prime_selector-prime-selector.Tpo -c -o prime_selector-prime-selector.o `test -f 'prime-selector.c' || echo '$(srcdir)/'`prime-selector.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/prime_selector-prime-selector.Tpo $(DEPDIR)/prime_selector-prime-selector.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='prime-selector.c' object='prime_selector-prime-selector.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -c -o primeselector-primeselector.o `test -f 'primeselector.c' || echo '$(srcdir)/'`primeselector.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(prime_selector_CPPFLAGS) $(CPPFLAGS) $(prime_selector_CFLAGS) $(CFLAGS) -c -o prime_selector-prime-selector.o `test -f 'prime-selector.c' || echo '$(srcdir)/'`prime-selector.c
 
-primeselector-primeselector.obj: primeselector.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -MT primeselector-primeselector.obj -MD -MP -MF $(DEPDIR)/primeselector-primeselector.Tpo -c -o primeselector-primeselector.obj `if test -f 'primeselector.c'; then $(CYGPATH_W) 'primeselector.c'; else $(CYGPATH_W) '$(srcdir)/primeselector.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/primeselector-primeselector.Tpo $(DEPDIR)/primeselector-primeselector.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='primeselector.c' object='primeselector-primeselector.obj' libtool=no @AMDEPBACKSLASH@
+prime_selector-prime-selector.obj: prime-selector.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(prime_selector_CPPFLAGS) $(CPPFLAGS) $(prime_selector_CFLAGS) $(CFLAGS) -MT prime_selector-prime-selector.obj -MD -MP -MF $(DEPDIR)/prime_selector-prime-selector.Tpo -c -o prime_selector-prime-selector.obj `if test -f 'prime-selector.c'; then $(CYGPATH_W) 'prime-selector.c'; else $(CYGPATH_W) '$(srcdir)/prime-selector.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/prime_selector-prime-selector.Tpo $(DEPDIR)/prime_selector-prime-selector.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='prime-selector.c' object='prime_selector-prime-selector.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(primeselector_CPPFLAGS) $(CPPFLAGS) $(primeselector_CFLAGS) $(CFLAGS) -c -o primeselector-primeselector.obj `if test -f 'primeselector.c'; then $(CYGPATH_W) 'primeselector.c'; else $(CYGPATH_W) '$(srcdir)/primeselector.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(prime_selector_CPPFLAGS) $(CPPFLAGS) $(prime_selector_CFLAGS) $(CFLAGS) -c -o prime_selector-prime-selector.obj `if test -f 'prime-selector.c'; then $(CYGPATH_W) 'prime-selector.c'; else $(CYGPATH_W) '$(srcdir)/prime-selector.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -629,8 +630,8 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libexecPROGRAMS
 
 
 install-exec-hook:
-	/bin/chown root $(DESTDIR)$(libexecdir)/primeselect
-	/bin/chmod 4755 $(DESTDIR)$(libexecdir)/primeselect
+	/bin/chown root $(DESTDIR)$(libexecdir)/prime-selector-select
+	/bin/chmod 4755 $(DESTDIR)$(libexecdir)/prime-selector-select
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

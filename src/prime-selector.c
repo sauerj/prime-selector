@@ -140,11 +140,11 @@ void change_gpu (int gpu)
   if (gpu == GPU_NVIDIA)
   {
 	set_sensitive_button (intel_button, nvidia_button);
-	system (LIBEXECDIR"/primeselect nvidia");
+	system (LIBEXECDIR"/prime-selector-select nvidia");
   }
   if (gpu == GPU_INTEL)
   {
 	set_sensitive_button (nvidia_button, intel_button);
-	system (LIBEXECDIR"/primeselect intel");
+	system (LIBEXECDIR"/prime-selector-select intel");
   }
 }
