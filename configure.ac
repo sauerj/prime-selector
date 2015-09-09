@@ -1,6 +1,5 @@
 AC_INIT([PRIMEselector], [0.1], [jsauer65@gmail.com])
 AM_INIT_AUTOMAKE()
-AM_PATH_PYTHON([2.5])
 AC_PROG_CC
 AC_PROG_SED
 PKG_CHECK_MODULES([GTK], [gtk+-3.0])
@@ -8,7 +7,6 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
  Makefile
  src/Makefile
- src/PRIMEselector/Makefile
  data/Makefile
  data/icons/Makefile
  data/icons/hicolor/Makefile
