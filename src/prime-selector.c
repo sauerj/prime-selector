@@ -218,7 +218,7 @@ get_prime_status ()
     return GPU_NVIDIA;
 
   else
-    return -1;
+    return GPU_ERROR;
 }
 
 void
