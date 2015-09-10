@@ -23,7 +23,7 @@
  * 
  * 
  */
- 
+
 #include <stdio.h>
 #include <unistd.h>
 #include <gtk/gtk.h>
@@ -98,7 +98,6 @@ main (int argc, char **argv)
   gtk_window_set_title (GTK_WINDOW (window), PACKAGE_NAME);
   gtk_window_set_icon_name (GTK_WINDOW (window), PACKAGE);
   gtk_container_set_border_width (GTK_CONTAINER (window), 18);
-  g_signal_connect (window, "delete-event", G_CALLBACK (gtk_main_quit), NULL);
 
 /* Grid */
   grid = gtk_grid_new ();
@@ -148,6 +147,7 @@ main (int argc, char **argv)
 		    NULL);
   g_signal_connect (nvidia_button, "clicked", G_CALLBACK (on_nvidia_clicked),
 		    NULL);
+  g_signal_connect (window, "delete-event", G_CALLBACK (gtk_main_quit), NULL);
 
   gtk_widget_show_all (window);
 
