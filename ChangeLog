@@ -1,0 +1,6 @@
+Changelog for prime-selector
+
+[0.1] 2015-09-11
+Added
+ - Inital version
+ - simply uses prime-select to change status
