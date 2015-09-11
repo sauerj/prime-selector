@@ -16,6 +16,10 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 #
 AC_PROG_CC
 PKG_CHECK_MODULES([GTK], [gtk+-3.0])
+AC_CHECK_PROG(PRIMESELECT_CHECK, prime-select, yes)
+if test x"${PRIMESELECT_CHECK}" != x"yes" ; then
+    AC_MSG_ERROR([Please install prime-select before trying to build prime-selector.])
+fi
 
 AC_CONFIG_FILES([
  Makefile
