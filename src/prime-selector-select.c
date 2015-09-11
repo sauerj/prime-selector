@@ -45,7 +45,7 @@ main (int argc, char **argv)
        * Rewrite to be 'prime-select' independet
        * No error handling from 'prime-select'
        */
-      execl ("/usr/bin/prime-select", "prime-select", "intel", NULL);
+      execlp ("prime-select", "prime-select", "intel", NULL);
       return 0;
     }
   else if (strcmp (argv[1], "nvidia") == 0)
@@ -56,7 +56,7 @@ main (int argc, char **argv)
        * Rewrite to be 'prime-select' independet
        * No error handling from 'prime-select'
        */
-      execl ("/usr/bin/prime-select", "prime-select", "nvidia", NULL);
+      execlp ("prime-select", "prime-select", "nvidia", NULL);
       return 0;
     }
   else
