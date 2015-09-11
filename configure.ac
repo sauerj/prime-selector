@@ -9,7 +9,7 @@ AC_CONFIG_HEADERS([config.h])
 #
 # Automake
 #
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign dist-bzip2])
 
 #
 # Check for programs and libraries
