@@ -1,8 +1,22 @@
+#
+# Autoconf
+#
 AC_INIT([PRIMEselector], [0.1], [jsauer65@gmail.com])
-AM_INIT_AUTOMAKE()
+AC_CONFIG_SRCDIR([src/prime-selector.c])
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_HEADERS([config.h])
+
+#
+# Automake
+#
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+
+#
+# Check for programs and libraries
+#
 AC_PROG_CC
 PKG_CHECK_MODULES([GTK], [gtk+-3.0])
-AC_CONFIG_HEADERS([config.h])
+
 AC_CONFIG_FILES([
  Makefile
  src/Makefile
