@@ -1,3 +1,4 @@
+AM_CPPFLAGS = -Wall
 libexec_PROGRAMS = prime-selector-select
 prime_selector_select_SOURCES = prime-selector-select.c
 
